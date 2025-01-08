@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { TeslaModel, ChargerType } from '../types/types';
 import { teslaChargingData, electricityRates } from '../constants/teslaData';
 import { getChargingRatePercentage } from '../constants/chargingCurve';
@@ -17,6 +17,8 @@ export default function ChargingCalculator() {
     cost: number;
     energyAdded: number;
   } | null>(null);
+
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const getDefaultChargingRate = (chargerType: ChargerType) => {
     switch (chargerType) {
@@ -96,6 +98,11 @@ export default function ChargingCalculator() {
       cost: parseFloat(cost.toFixed(2)),
       energyAdded: parseFloat(energyCharged.toFixed(1))
     });
+
+    // After setting the result, smooth scroll to it
+    setTimeout(() => {
+      resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
   };
 
   return (
@@ -195,7 +202,7 @@ export default function ChargingCalculator() {
       </button>
 
       {result && (
-        <div className="result space-y-20 py-12 px-8">
+        <div ref={resultRef} className="result space-y-20 py-12 px-8">
           <div className="flex items-center justify-between group relative hover:bg-gray-700/20 p-4 rounded-lg transition-all duration-200">
             <div className="w-[32px] h-[32px] flex items-center justify-center">
               <ClockIcon className="!w-5 !h-5 text-blue-400" aria-hidden="true" />
