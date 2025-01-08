@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TeslaModel, ChargerType } from '../types/types';
 import { teslaChargingData, electricityRates } from '../constants/teslaData';
 import { getChargingRatePercentage } from '../constants/chargingCurve';

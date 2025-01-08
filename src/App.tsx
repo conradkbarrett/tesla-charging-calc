@@ -1,4 +1,3 @@
-import React from 'react';
 import ChargingCalculator from './components/ChargingCalculator';
 
 function App() {
